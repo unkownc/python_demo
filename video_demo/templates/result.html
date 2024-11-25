@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% if success %}
+            <div class="result-info">
+                <div class="video-header">
+                    <div class="video-details">
+                        <h2>{{ video_info.title }}</h2>
+                        <div class="meta-info">
+                            <p><strong>作者:</strong> {{ video_info.author }}</p>
+                            <p><strong>时长:</strong> {{ video_info.length }}</p>
+                            <p><strong>观看次数:</strong> {{ '{:,}'.format(video_info.views) }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="download-sections">
+                    <div class="preview-section">
+                        <h3>视频预览</h3>
+                        <div class="preview-container">
+                            <video controls>
+                                <source src="{{ video_path }}" type="video/mp4">
+                                您的浏览器不支持视频标签。
+                            </video>
+                        </div>
+                        <a href="{{ video_path }}" class="download-button" download>
+                            <span class="icon">⭳</span> 下载视频
+                        </a>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h3>音频预览</h3>
+                        <div class="preview-container">
+                            <audio controls>
+                                <source src="{{ audio_path }}" type="audio/mp4">
+                                您的浏览器不支持音频标签。
+                            </audio>
+                        </div>
+                        <a href="{{ audio_path }}" class="download-button" download>
+                            <span class="icon">⭳</span> 下载音频
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="error-container">
+                <h2>下载失败</h2>
+                <p class="error-message">{{ error }}</p>
+            </div>
+        {% endif %}
+        
+        <a href="/" class="back-button">返回首页</a>
+    </div>
+</body>
+</html> 
